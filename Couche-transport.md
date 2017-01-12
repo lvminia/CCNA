@@ -2,7 +2,7 @@
 
 La couche transport est chargée de l'etablissement d'une session de communication entre les applications. La couche transport a pour but de suivre les echanges des applications sur le réseau, de segmenter les données a envoyer pour correspondre au protocole de la couche internet mais aussi d'identifier les applications pouvant envoyer et recevoir des données en attribuant un numero de port a chacune d'elles.
 
-A l'aide des en-tetes attribués a chaque segment, la couche transport peut reconstituer les données reçus dans le bon ordre malgré une multiplexion du siganl permettant de partager la bande passante.
+A l'aide des en-tetes attribués a chaque segment, la couche transport peut reconstituer les données reçus dans le bon ordre malgré une multiplexion du signal permettant de partager la bande passante.
 
 Il existe deux types de protocoles utilisés sur la couche transport et présents dans la suite de protocoles TCP/IP
 
@@ -12,11 +12,11 @@ Il existe deux types de protocoles utilisés sur la couche transport et présent
 
 ## Ports
 
-La gestion des ports permettent a plusieurs applications de communiquer sur le même système. Pour se faire on attribue un port a chaque application pour cmmuniquer. Un port **source** et un port **destination**. Avec l'adresse IP et le port, on a toutes les informations pour se faire communiquer deux applications précises sur deux systèmes distants. Il existe différents types de numerots de ports :
+La gestion des ports permettent a plusieurs applications de communiquer sur le même système. Pour se faire on attribue un port a chaque application pour communiquer. Un port **source** et un port **destination**. Avec l'adresse IP et le port, on a toutes les informations pour se faire communiquer deux applications précises sur deux systèmes distants. Il existe différents types de numerots de ports :
 
 * **Ports réservés (0-1023)** permettant a des applications standards de communquer
-* **Port enregistrés (1024-49151)** enregistrablme aupres de l'IANA par des entreprises permettant de normaliser les ports utilisés
-* **Ports privés ou dynamiques (49152-65535)** ports attribués dynamiquement par un hote por permettre un conexion dans les deux sens
+* **Port enregistrés (1024-49151)** enregistrable aupres de l'IANA par des entreprises permettant de normaliser les ports utilisés
+* **Ports privés ou dynamiques (49152-65535)** ports attribués dynamiquement par un hote por permettre un connexion dans les deux sens
 
 > Quick tip : La commande `netstat` permet d'afficher les ports utilisés sur une machine
 
@@ -24,7 +24,7 @@ Un même port ne peut etre utilisé par deux applications simulatément et seul 
 
 ## TCP
 
-Le protocole TCP a pour objectiof d'etablire une connexion permettant de verifier la connectivité entre l'hote de depart et d'arrivée, de garantire la livraison par une acheminement fieble (accusé de reception), de livrer les données dans le bon ordre et enfin de controler le flux de donnés pour qu'il corresponde aux exigences du support de transmission.
+Le protocole TCP a pour objectif d'établir une connexion permettant de verifier la connectivité entre l'hote de départ et d'arrivée, de garantire la livraison par une acheminement fiable (accusé de reception), de livrer les données dans le bon ordre et enfin de controler le flux de donnés pour qu'il corresponde aux exigences du support de transmission.
 
 Pour arriver a cela, le protocol inclue les en-têtes suivants :
 
@@ -34,15 +34,15 @@ Pour arriver a cela, le protocol inclue les en-têtes suivants :
 * **Longeure d'en-tête (4 bits)** La taille des ten-têtes TCP
 * **Plage réservée (6 Bits)**
 * **Controle (6 bits)** Indiquant l'objectif du segment
-* **Taille de la fenetre (16 bits)** Le nombre de segments acceptés en même temps
-* **Somme de contrôle (16 bits)** utilisé pour controler les érreurs du segment
+* **Taille de la fenêtre (16 bits)** Le nombre de segments acceptés en même temps
+* **Somme de contrôle (16 bits)** utilisé pour controler les erreurs du segment
 * **Urgent (16 bits)** indique si un paquet est urgent
 
-Pour éfféctuer une connexion, 3 etapes sont requises.
+Pour effectuer une connexion, 3 etapes sont requises.
 
 1. Le client demande une connexion au serveur (requète SYN)
-2. Le srveur accuse récéption et demande uyne connexion vers le client (requète SYN et ACK)
-3. Le client accusé récéption de la connexion depuis le serveur (requète ACK)
+2. Le serveur accuse récéption et demande une connexion vers le client (requète SYN et ACK)
+3. Le client accuse récéption de la connexion depuis le serveur (requète ACK)
 
 Pour fermer un connexion, on procède comme suit :
 
@@ -52,8 +52,8 @@ Pour fermer un connexion, on procède comme suit :
 
 Chaque connexion TCP se déroule en 3 etapes :
 
-1. On vérifie que le périuphérique de destination est bien présent
-2. On s'assure que le périphérique de destination dispose d'une apllication sur le port défini
+1. On vérifie que le périphérique de destination est bien présent
+2. On s'assure que le périphérique de destination dispose d'une application sur le port définit
 3. On informe le périphérique de la demande de connexion
 
 Ces connexions sont orchéstrés par l'en tête de controle pouvant prendre comme valeurs :
@@ -62,12 +62,12 @@ Ces connexions sont orchéstrés par l'en tête de controle pouvant prendre comm
 * **ACK** Accusé de récéption
 * **PSH** Fonction push
 * **RST** Reinitialiser la connexion
-* **SYN** Syncronisation des numeros de séquence
+* **SYN** Synchronisation des numeros de séquence
 * **FIN** Abscence de données de l'expéditeur (fin de connexion)
 
-Pour recoonstituer les données dans le bon ordre, un numéro permettant de les réordonnés est conclu lors de la connexion, ce numéro initial appelé ISN est un nombre aléatoire servant de base a toute la connexion.
+Pour reconstituer les données dans le bon ordre, un numéro permettant de les réordonner est conclu lors de la connexion, ce numéro initial appelé ISN est un nombre aléatoire servant de base à toute la connexion.
 
-Pour eviter d'accuser la récéption de toute les segments, on met en place un taille de fenetre tant la taille maximale de données que peut recevoire le serveur sans avoir besoin d'un accusé de récéption. Rien n'empeche le erveur d'accuser la récéption avant.
+Pour eviter d'accuser la récéption de toute les segments, on met en place une taille de fenêtre tant la taille maximale de données que peut recevoire le serveur sans avoir besoin d'un accusé de récéption. Rien n'empeche le serveur d'accuser la récéption avant.
 
 Le protocole TCP inclue un système de gestion de l'encombrement du réseau permettant d'optimiser les transferts. Ainsi le client peut réduire le numbre d'octets avant l'accusé de reception pour fluidifier le réseau.
 
@@ -79,7 +79,7 @@ Le protocole TCP inclue un système de gestion de l'encombrement du réseau perm
 
 ## UDP
 
-Le protocole UDP est bien plus simple car il a vocation a etre rapide et doit réduire au minimum son ajout de données ou l'envoie de segments superflux. Ainsi l'en-tête UDP ne se compose que de 8 Octets comprenant :
+Le protocole UDP est bien plus simple car il a vocation à être rapide et doit réduire au minimum son ajout de données ou l'envoie de segments superflux. Ainsi l'en-tête UDP ne se compose que de 8 Octets comprenant :
 
 * **Port source et destination (32 bits)**
 * **Longeure de données (16 bits)**
@@ -87,7 +87,7 @@ Le protocole UDP est bien plus simple car il a vocation a etre rapide et doit r�
 
 Le protocole UDP malgré sa simplicité reste utile et plus ou moins fiable. En effet, si aucune reponse n'est recu durant un certain temps, les paquets envoyés au depart sont réenvoyés.
 
-Le protocole UDP ne fournis pas de sytstème permettant de réassembler les données, il sont simplement reassemblés dans l'ordre dans lequel ils sont arrivés. Dans le cadre de ce protocole les données sont séparés en **datagrammes**. Si l'ordre est important pour l'application, c'est a elle de les reordonner.
+Le protocole UDP ne fournis pas de sytstème permettant de réassembler les données, il sont simplement reassemblés dans l'ordre dans lequel ils sont arrivés. Dans le cadre de ce protocole les données sont séparés en **datagrammes**. Si l'ordre est important pour l'application, c'est à elle de les ré-ordonner.
 
 > Exmples : Applications utilisant UDP
 > * DHCP
@@ -95,4 +95,4 @@ Le protocole UDP ne fournis pas de sytstème permettant de réassembler les donn
 > * SNMP
 > * TFTP
 > * VoIP
-> * Television sur IP
+> * Télévision sur IP
